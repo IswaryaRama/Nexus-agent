@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+# 🔬 Nexus Research Agent
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An AI-powered multi-agent research assistant built with React 19. It combines live web search, document-based RAG, and a 5-agent debate system to deliver well-rounded, confidence-scored answers — all running directly in the browser with no backend required.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+### 🤖 5 Specialized AI Agents
+Each query is analyzed by a panel of agents with distinct personalities:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 🌐 Live Web Search
+Integrates with the **Tavily API** to fetch real-time search results and ground answers in current information.
 
-### `npm test`
+### 📄 Document RAG (Retrieval-Augmented Generation)
+Upload your own files and the agent retrieves relevant context using a custom **TF-IDF engine**:
+- Supports PDF, images (JPG, PNG, WebP), plain text, Markdown, CSV, and JSON
+- Text is chunked (600 words, 80-word overlap) and ranked by relevance per query
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 📊 Confidence Scoring
+Every response includes a confidence score calculated from:
+- Number and quality of web sources
+- Uploaded document coverage
+- Debate consensus strength
+- Response length and completeness
 
-### `npm run build`
+### 🙋 Human-in-the-Loop (HITL)
+Before running complex research, the agent can pause and ask you to confirm or refine the query — keeping you in control.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 💬 Session Management
+Multiple chat sessions with persistent history stored in `localStorage`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ⚙️ Fully Configurable
+Control the model, number of debating agents, temperature, and toggle features (web search, RAG, debate, HITL) on the fly.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🛠️ Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 19, Create React App |
+| LLM | [Groq API](https://console.groq.com) — `llama-3.3-70b-versatile` |
+| Web Search | [Tavily API](https://tavily.com) |
+| RAG Engine | Custom TF-IDF (no external vector DB) |
+| Styling | CSS-in-JS (inline styles + injected `<style>`) |
+| Fonts | DM Sans, Fraunces, JetBrains Mono |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🚀 Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Prerequisites
+- Node.js 18+
+- A free [Groq API key](https://console.groq.com)
+- A free [Tavily API key](https://tavily.com) *(optional, for web search)*
 
-## Learn More
+### Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+# Clone the repository
+git clone https://github.com/IswaryaRama/nexus-agent.git
+cd nexus-agent
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Install dependencies
+npm install
 
-### Code Splitting
+# Start the development server
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The app will open at **http://localhost:3000**
 
-### Analyzing the Bundle Size
+### Adding API Keys
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Click the ⚙️ **Settings** icon inside the app
+2. Enter your **Groq API Key**
+3. Enter your **Tavily API Key** *(optional)*
+4. Save — you're ready to go!
 
-### Making a Progressive Web App
+> API keys are stored only in your browser's `localStorage` and never sent anywhere except the respective API endpoints.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 📁 Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+nexus-agent/
+├── public/
+│   ├── index.html
+│   ├── favicon.ico
+│   └── manifest.json
+├── src/
+│   ├── App.js          # All app logic and UI (1438 lines)
+│   ├── App.css
+│   ├── index.js
+│   └── index.css
+├── package.json
+└── README.md
+```
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🎮 How to Use
 
-### `npm run build` fails to minify
+1. **Ask a question** — type any research query in the chat box
+2. **Toggle features** — use the toolbar to enable/disable Web Search, RAG, Debate, or HITL
+3. **Upload documents** — drag & drop files to give the agent private context
+4. **Review the debate** — expand the agent panel to see how each agent responded
+5. **Rate responses** — use the star rating and correction box to give feedback
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 📦 Available Scripts
+
+```bash
+npm start       # Run in development mode
+npm run build   # Build for production
+npm test        # Run tests
